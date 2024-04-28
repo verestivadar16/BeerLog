@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+// python -m grpc_tools.protoc -I../../protos --python_out=. --pyi_out=. --grpc_python_out=. ../../protos/helloworld.proto
+// python -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. send_audio.proto
+
+package audio_service;
+
+
+service AudioService{
+    rpc SendAudio(stream AudioChunk) returns (AudioResponse);
+}
+
+message AudioChunk{
+    bytes data = 1;
+}
+
+message AudioResponse{
+    string message = 1;
+}
+
+service ServerStatus {
+    rpc CheckStatus (ServerRequest) returns (ServerResponse) {}
+}
+
+message ServerRequest{
+    string mycheck = 1;
+}
+
+message ServerResponse{
+    bool isonline = 1;
+}
